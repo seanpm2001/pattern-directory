@@ -6,37 +6,32 @@
 namespace WordPressdotorg\Pattern_Creator;
 
 ?>
-<!-- wp:group {"layout":{"type":"constrained","wideSize":"940px"}} -->
-<div class="wp-block-group">
-	<!-- wp:columns -->
-	<div class="wp-block-columns">
-		<!-- wp:column {"width":"33.33%"} -->
-		<div class="wp-block-column" style="flex-basis:33.33%">
-			<!-- wp:image {"sizeSlug":"large"} -->
-			<figure class="wp-block-image size-large"><img src="<?php echo esc_url( get_theme_file_uri( 'images/masthead-bg.png' ) ); ?>" alt=""/></figure>
-			<!-- /wp:image -->
-		</div>
-		<!-- /wp:column -->
+<!-- wp:template-part {"slug":"header","className":"has-display-contents"} /-->
 
-		<!-- wp:column {"width":"66.66%"} -->
-		<div class="wp-block-column" style="flex-basis:66.66%">
-			<!-- wp:heading {"level":1,"fontSize":"large"} -->
-			<h1 class="wp-block-heading has-large-font-size"><?php esc_html_e( 'Create and share patterns for every WordPress site.', 'wporg-patterns' ); ?></h1>
-			<!-- /wp:heading -->
+<!-- wp:group {"tagName":"main","align":"full","layout":{"type":"constrained"},"style":{"spacing":{"padding":{"left":"var:preset|spacing|edge-space","right":"var:preset|spacing|edge-space","top":"var:preset|spacing|40"}}}} -->
+<main class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--edge-space);padding-left:var(--wp--preset--spacing--edge-space)">
 
-			<!-- wp:wporg/notice {"type":"warning"} -->
-			<div class="wp-block-wporg-notice is-warning-notice">
-				<div class="wp-block-wporg-notice__icon"></div>
-				<div class="wp-block-wporg-notice__content"><p><?php esc_html_e( 'You need to be the pattern\'s author to edit this pattern.', 'wporg-patterns' ); ?></p></div>
-			</div>
-			<!-- /wp:wporg/notice -->
+	<!-- wp:group {"align":"wide"} -->
+	<div class="wp-block-group alignwide">
+
+		<!-- wp:heading {"level":1,"fontSize":"heading-3"} -->
+		<h1 class="wp-block-heading has-heading-3-font-size"><?php esc_html_e( 'Create and share patterns for every WordPress site.', 'wporg-patterns' ); ?></h1>
+		<!-- /wp:heading -->
+
+		<!-- wp:wporg/notice {"type":"warning"} -->
+		<div class="wp-block-wporg-notice is-warning-notice">
+			<div class="wp-block-wporg-notice__icon"></div>
+			<div class="wp-block-wporg-notice__content"><p><?php esc_html_e( 'You need to be the pattern\'s author to edit this pattern.', 'wporg-patterns' ); ?></p></div>
 		</div>
-		<!-- /wp:column -->
+		<!-- /wp:wporg/notice -->
+
+		<!-- wp:spacer {"height":"var:preset|spacing|50","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+		<div style="margin-top:0;margin-bottom:0;height:var(--wp--preset--spacing--50)" aria-hidden="true" class="wp-block-spacer"></div>
+		<!-- /wp:spacer -->
 	</div>
-	<!-- /wp:columns -->
+	<!-- /wp:group -->
 
-	<!-- wp:spacer {"height":"100px"} -->
-	<div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
-	<!-- /wp:spacer -->
-</div>
+</main>
 <!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer"} /-->

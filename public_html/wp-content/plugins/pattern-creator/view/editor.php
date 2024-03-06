@@ -11,33 +11,35 @@ add_filter( 'body_class', function( $classes ) {
 	return $classes;
 } );
 
-get_header();
-
 $is_logged_in = is_user_logged_in();
 $can_edit     = current_user_can( 'edit_pattern', get_query_var( PATTERN_ID_VAR ) );
 
-?>
+$template_html = '';
+if ( ( is_editing_pattern() && $can_edit ) || ( ! is_editing_pattern() && $is_logged_in ) ) {
+	$template_html = '<div id="block-pattern-creator"></div>';
+} else {
+	// Include block content from other files to simplify HTML markup.
+	ob_start();
+	if ( ! $is_logged_in ) {
+		include __DIR__ . '/log-in.php';
+	} elseif ( ! $can_edit ) {
+		include __DIR__ . '/not-owner.php';
+	}
+	$template_html = sprintf( '<div class="wp-site-blocks">%s</div>', do_blocks( ob_get_clean() ) );
+}
 
-	<main id="main" class="site-main col-12" role="main">
+?><!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>" />
+	<?php wp_head(); ?>
+</head>
 
-		<?php if ( ( is_editing_pattern() && $can_edit ) || ( ! is_editing_pattern() && $is_logged_in ) ) : ?>
-			<div id="block-pattern-creator"></div>
-		<?php else : ?>
-			<div class="entry-content">
-				<?php
-				// Include block content from other files to simplify HTML markup.
-				ob_start();
-				if ( ! $is_logged_in ) {
-					include __DIR__ . '/log-in.php';
-				} elseif ( ! $can_edit ) {
-					include __DIR__ . '/not-owner.php';
-				}
-				echo do_blocks( ob_get_clean() ); // phpcs:ignore
-				?>
-			</div>
-		<?php endif; ?>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
 
-	</main><!-- #main -->
+	<?php echo $template_html; // phpcs:ignore ?>
 
-<?php
-get_footer();
+	<?php wp_footer(); ?>
+</body>
+</html>
