@@ -143,6 +143,7 @@ function pattern_creator_init() {
 		update_post_meta( $post_id, 'wpop_locale', 'en_US' );
 	}
 
+	add_filter( 'should_load_separate_core_block_assets', '__return_false', 100 );
 	add_filter( 'template', __NAMESPACE__ . '\set_theme_twentytwentythree' );
 	add_filter( 'stylesheet', __NAMESPACE__ . '\set_theme_twentytwentythree' );
 
