@@ -51,14 +51,14 @@
 </div>
 <!-- /wp:query -->
 
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"right":"var:preset|spacing|edge-space","left":"var:preset|spacing|edge-space"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull" style="padding-right:var(--wp--preset--spacing--edge-space);padding-left:var(--wp--preset--spacing--edge-space)">
-	<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"},"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"default"}} -->
-	<div class="wp-block-group alignwide" style="margin-bottom:var(--wp--preset--spacing--50);padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
-		<!-- wp:paragraph -->
-		<p class="is-style-default"><a href="<?php echo esc_url( home_url( '/archives/' ) ); ?>"><?php esc_html_e( 'View all patterns', 'wporg-patterns' ); ?></a></p>
-		<!-- /wp:paragraph -->
-	</div>
-	<!-- /wp:group -->
+<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"},"margin":{"top":"var:preset|spacing|40"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-0"}}}},"textColor":"charcoal-0","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide has-charcoal-0-color has-text-color has-link-color" style="margin-top:var(--wp--preset--spacing--40);padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
+	<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"300","letterSpacing":"-2px"}},"className":"is-style-with-arrow","fontSize":"heading-1","fontFamily":"inter"} -->
+	<h2 class="wp-block-heading is-style-with-arrow has-inter-font-family has-heading-1-font-size" style="font-style:normal;font-weight:300;letter-spacing:-2px"><a href="<?php echo esc_url( home_url( '/archives/' ) ); ?>"><?php _e( 'View all patterns', 'wporg' ); ?></a></h2>
+	<!-- /wp:heading -->
 </div>
 <!-- /wp:group -->
+
+<!-- wp:spacer {"height":"60px","align":"wide","className":"has-dots-background","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|50"}}}} -->
+<div style="margin-top:0;margin-bottom:var(--wp--preset--spacing--50);height:60px" aria-hidden="true" class="wp-block-spacer alignwide has-dots-background"></div>
+<!-- /wp:spacer -->

@@ -136,6 +136,14 @@ body.page .wp-block-wporg-local-navigation-bar .wp-block-query-title {
 	align-items: center;
 }
 
+/* Add background to spacers. These are custom classes, not attached as block styles. */
+.wp-block-spacer.has-dots-background {
+	background-position: top center;
+	background-repeat: repeat-x;
+	background-size: auto;
+	background-image: url(images/dots-banner.svg);
+}
+
 /* Drop to a two column layout for grids (except the "more by"). */
 @media (max-width: 1280px) {
 	:where(body:not(.single-wporg-pattern)) .wp-block-post-template.is-layout-grid.columns-3 {
