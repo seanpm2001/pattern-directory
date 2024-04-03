@@ -67,8 +67,8 @@
 	<!-- /wp:spacer -->
 
 	<!-- wp:query-no-results -->
-		<!-- wp:paragraph -->
-		<p><?php esc_html_e( 'Anyone can create and share patterns using the familiar block editor. Design helpful starting points for yourself and any WordPress site.', 'wporg-patterns' ); ?></p>
+		<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0"}}}} -->
+		<p style="margin-top:0"><?php esc_html_e( 'Anyone can create and share patterns using the familiar block editor. Design helpful starting points for yourself and any WordPress site.', 'wporg-patterns' ); ?></p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:buttons -->
@@ -78,6 +78,10 @@
 			<!-- /wp:button -->
 		</div>
 		<!-- /wp:buttons -->
+
+		<!-- wp:spacer {"height":"var:preset|spacing|40","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+		<div style="margin-top:0;margin-bottom:0;height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
+		<!-- /wp:spacer -->
 	<!-- /wp:query-no-results -->
 </div>
 <!-- /wp:query -->
