@@ -36,6 +36,9 @@ $init_state = [
 	'base64Image' => '',
 	'src' => esc_url( $url ),
 	'alt' => the_title_attribute( array( 'echo' => false ) ),
+	'attempts' => 0,
+	'shouldRetry' => true,
+	'hasError' => false,
 ];
 $encoded_state = wp_json_encode( $init_state );
 
@@ -69,6 +72,7 @@ if ( $has_link ) {
 		/>
 		<span
 			data-wp-bind--hidden="state.base64Image"
+			data-wp-class--screen-reader-text="!state.base64Image"
 			data-wp-text="context.alt"
 		></span>
 	</div>
