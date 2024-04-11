@@ -13,6 +13,7 @@ $init_state = [
 	'url' => $view_url,
 	'previewWidth' => 1200,
 	'previewHeight' => 200,
+	'isControlled' => true,
 ];
 $encoded_state = wp_json_encode( $init_state );
 

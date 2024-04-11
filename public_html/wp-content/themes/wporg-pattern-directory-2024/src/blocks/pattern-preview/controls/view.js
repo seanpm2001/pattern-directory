@@ -110,7 +110,23 @@ const { actions, state } = store( 'wporg/patterns/preview', {
 		},
 		updatePreviewHeight() {
 			const context = getContext();
-			context.previewHeight = 600;
+			const { ref } = getElement();
+
+			// If this is a "controlled" preview (has the toggles and
+			// drag handles), it should also have a fixed height.
+			if ( context.isControlled ) {
+				context.previewHeight = 600;
+				return;
+			}
+
+			// Need to "use" previewWidth so that `data-wp-watch` will re-run this action when it changes.
+			context.previewWidth; // eslint-disable-line no-unused-expressions
+
+			const iframeDoc = ref.contentDocument;
+			const height = iframeDoc.querySelector( '.entry-content' )?.clientHeight;
+			if ( height ) {
+				context.previewHeight = height * state.scale;
+			}
 		},
 		handleOnResize() {
 			const context = getContext();
@@ -118,7 +134,9 @@ const { actions, state } = store( 'wporg/patterns/preview', {
 
 			// Back up to the block container, so that this works regardless
 			// of which element interaction triggered it.
-			const container = ref.closest( '.wp-block-wporg-pattern-view-control' );
+			const container =
+				ref.closest( '.wp-block-wporg-pattern-view-control' ) ||
+				ref.closest( '.wp-block-wporg-pattern-preview' );
 			if ( container ) {
 				const preview = container.querySelector( '.wp-block-wporg-pattern-preview__container' );
 				context.pageWidth = preview?.clientWidth;
