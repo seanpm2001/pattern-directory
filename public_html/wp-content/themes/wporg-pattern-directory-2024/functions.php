@@ -6,6 +6,7 @@ use function WordPressdotorg\Pattern_Directory\Favorite\{get_favorites, get_favo
 use const WordPressdotorg\Pattern_Directory\Pattern_Post_Type\POST_TYPE;
 use const WordPressdotorg\Pattern_Directory\Pattern_Flag_Post_Type\POST_TYPE as FLAG_POST_TYPE;
 use const WordPressdotorg\Pattern_Directory\Pattern_Flag_Post_Type\PENDING_STATUS;
+use function WordPressdotorg\Theme\Pattern_Directory_2024\Block_Config\get_applied_filter_list;
 
 // Block files
 require_once( __DIR__ . '/src/blocks/copy-button/index.php' );
@@ -29,6 +30,9 @@ add_action( 'query_vars', __NAMESPACE__ . '\add_patterns_query_vars' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_patterns_query' );
 add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\modify_query_loop_block_query_vars', 10, 3 );
 add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\custom_query_loop_by_id', 20, 2 );
+add_action( 'template_redirect', __NAMESPACE__ . '\redirect_term_archives' );
+add_action( 'wp_head', __NAMESPACE__ . '\add_social_meta_tags', 5 );
+add_filter( 'document_title_parts', __NAMESPACE__ . '\set_document_title' );
 
 add_action(
 	'init',
@@ -410,4 +414,135 @@ function user_has_flagged_pattern() {
 	$items = new \WP_Query( $args );
 
 	return $items->have_posts();
+}
+
+/**
+ * Redirect category and tag archives to their canonical URLs.
+ *
+ * This prevents double URLs for every category/tag, e.g.,
+ * `/archives/?pattern-categories=footer` and `/categories/footer/`.
+ */
+function redirect_term_archives() {
+	global $wp_query;
+	$terms = get_applied_filter_list( false );
+	// True on the `/tag/…` URLs, and false on `/archive/?tag…` URLs.
+	$is_term_archive = is_tag() || is_category() || is_tax();
+
+	// If there is only one term applied, and we're not already on a term
+	// archive, redirect to the main term archive URL.
+	if ( count( $terms ) === 1 && ! $is_term_archive ) {
+		$url = get_term_link( $terms[0] );
+		// Pass through search query, curation, sorting values.
+		$query_vars = [ 's', 'curation', 'order', 'orderby' ];
+		foreach ( $query_vars as $query_var ) {
+			if ( isset( $wp_query->query[ $query_var ] ) ) {
+				$url = add_query_arg( $query_var, $wp_query->query[ $query_var ], $url );
+			}
+		}
+		wp_safe_redirect( $url );
+		exit;
+	}
+}
+
+/**
+ * Add meta tags for richer social media integrations.
+ */
+function add_social_meta_tags() {
+	$og_fields     = [];
+	// Final image TBD.
+	$default_image = function_exists( '\WordPressdotorg\MU_Plugins\Site_Branding\jetpack_open_graph_image_default' ) ? \WordPressdotorg\MU_Plugins\Site_Branding\jetpack_open_graph_image_default() : '';
+	$site_title    = function_exists( '\WordPressdotorg\site_brand' ) ? \WordPressdotorg\site_brand() : 'WordPress.org';
+
+	if ( is_front_page() || is_home() ) {
+		$og_fields = [
+			'og:title'       => __( 'Block Pattern Directory', 'wporg-patterns' ),
+			'og:description' => __( 'Add a beautifully designed, ready to go layout to any WordPress site with a simple copy/paste.', 'wporg-patterns' ),
+			'og:site_name'   => $site_title,
+			'og:type'        => 'website',
+			'og:url'         => home_url(),
+			'og:image'       => esc_url( $default_image ),
+		];
+	} else if ( is_tax() ) {
+		$og_fields = [
+			'og:title'       => sprintf( __( 'Block Patterns: %s', 'wporg-patterns' ), esc_attr( single_term_title( '', false ) ) ),
+			'og:description' => __( 'Add a beautifully designed, ready to go layout to any WordPress site with a simple copy/paste.', 'wporg-patterns' ),
+			'og:site_name'   => $site_title,
+			'og:type'        => 'website',
+			'og:url'         => esc_url( get_term_link( get_queried_object_id() ) ),
+			'og:image'       => esc_url( $default_image ),
+		];
+	} else if ( is_singular( POST_TYPE ) ) {
+		$og_fields = [
+			'og:title'       => the_title_attribute( array( 'echo' => false ) ),
+			'og:description' => strip_tags( get_post_meta( get_the_ID(), 'wpop_description', true ) ),
+			'og:site_name'   => $site_title,
+			'og:type'        => 'website',
+			'og:url'         => esc_url( get_permalink() ),
+			'og:image'       => esc_url( $default_image ),
+		];
+		printf( '<meta name="twitter:card" content="summary_large_image">' . "\n" );
+		printf( '<meta name="twitter:site" content="@WordPress">' . "\n" );
+		printf( '<meta name="twitter:image" content="%s" />' . "\n", esc_url( $default_image ) );
+	}
+
+	foreach ( $og_fields as $property => $content ) {
+		printf(
+			'<meta property="%1$s" content="%2$s" />' . "\n",
+			esc_attr( $property ),
+			esc_attr( $content )
+		);
+	}
+
+	if ( isset( $og_fields['og:description'] ) ) {
+		printf(
+			'<meta name="description" content="%1$s" />' . "\n",
+			esc_attr( $og_fields['og:description'] )
+		);
+	}
+}
+
+/**
+ * Append an optimized site name.
+ *
+ * @param array $title {
+ *     The document title parts.
+ *
+ *     @type string $title   Title of the viewed page.
+ *     @type string $page    Optional. Page number if paginated.
+ *     @type string $tagline Optional. Site description when on home page.
+ *     @type string $site    Optional. Site title when not on home page.
+ * }
+ * @return array Filtered title parts.
+ */
+function set_document_title( $title ) {
+	global $wp_query;
+
+	if ( is_front_page() ) {
+		$title['title']   = __( 'Block Pattern Directory', 'wporg-patterns' );
+		$title['tagline'] = __( 'WordPress.org', 'wporg-patterns' );
+	} else {
+		if ( is_singular( POST_TYPE ) ) {
+			$title['title'] .= ' - ' . __( 'Block Pattern', 'wporg-patterns' );
+		} elseif ( is_tax() ) {
+			/* translators: Taxonomy term name */
+			$title['title'] = sprintf( __( 'Block Patterns: %s', 'wporg-patterns' ), $title['title'] );
+		} elseif ( is_author() ) {
+			/* translators: Author name */
+			$title['title'] = sprintf( __( 'Block Patterns by %s', 'wporg-patterns' ), $title['title'] );
+		}
+
+		// If results are paged and the max number of pages is known.
+		if ( is_paged() && $wp_query->max_num_pages ) {
+			// translators: 1: current page number, 2: total number of pages
+			$title['page'] = sprintf(
+				__( 'Page %1$s of %2$s', 'wporg-patterns' ),
+				get_query_var( 'paged' ),
+				$wp_query->max_num_pages
+			);
+		}
+
+		$title['site'] = __( 'WordPress.org', 'wporg-patterns' );
+	}
+
+	return $title;
 }

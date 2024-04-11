@@ -59,11 +59,12 @@ function register_block_bindings() {
 /**
  * Get a list of the currently-applied filters.
  *
- * @param boolean $include_search Whether the result should include the search term.
+ * @param boolean $include_extras Whether the result should include all
+ *                                filters or just the human-readable ones.
  *
  * @return array
  */
-function get_applied_filter_list( $include_search = true ) {
+function get_applied_filter_list( $include_extras = true ) {
 	global $wp_query;
 	$terms = [];
 	$taxes = [
@@ -82,7 +83,13 @@ function get_applied_filter_list( $include_search = true ) {
 			}
 		}
 	}
-	if ( $include_search && isset( $wp_query->query['s'] ) ) {
+	if ( $include_extras && isset( $wp_query->query['curation'] ) ) {
+		$terms[] = array( 'name' => $wp_query->query['curation'] );
+	}
+	if ( $include_extras && isset( $wp_query->query['orderby'] ) ) {
+		$terms[] = array( 'name' => $wp_query->query['orderby'] );
+	}
+	if ( $include_extras && isset( $wp_query->query['s'] ) ) {
 		$terms[] = array( 'name' => $wp_query->query['s'] );
 	}
 	return $terms;
