@@ -180,6 +180,11 @@ function get_sort_options( $options ) {
 		$sort = 'favorite_count_desc';
 	}
 
+	// Show the correct filters on the front page.
+	if ( is_front_page() ) {
+		$sort = 'date_desc';
+	}
+
 	$label = __( 'Sort', 'wporg-patterns' );
 	switch ( $sort ) {
 		case 'date_desc':
@@ -191,12 +196,6 @@ function get_sort_options( $options ) {
 		case 'favorite_count_desc':
 			$label = __( 'Popular', 'wporg-patterns' );
 			break;
-	}
-
-	// Show the correct filters on the front page.
-	if ( is_front_page() ) {
-		$sort = 'favorite_count_desc';
-		$label = __( 'Popular', 'wporg-patterns' );
 	}
 
 	$options = array(
@@ -256,7 +255,7 @@ function inject_other_filters( $key ) {
 			printf( '<input type="hidden" name="curation" value="core" />' );
 		}
 		if ( 'orderby' !== $key ) {
-			printf( '<input type="hidden" name="orderby" value="favorite_count_desc" />' );
+			printf( '<input type="hidden" name="orderby" value="date_desc" />' );
 		}
 	}
 
