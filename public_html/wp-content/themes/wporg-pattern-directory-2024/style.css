@@ -134,6 +134,11 @@ body.page .wp-block-wporg-local-navigation-bar .wp-block-query-title {
 	aspect-ratio: 4 / 3;
 	display: flex;
 	align-items: center;
+	overflow: hidden;
+}
+
+.wporg-my-patterns .wp-block-wporg-pattern-preview {
+	max-height: 100%;
 }
 
 /* Add background to spacers. These are custom classes, not attached as block styles. */
