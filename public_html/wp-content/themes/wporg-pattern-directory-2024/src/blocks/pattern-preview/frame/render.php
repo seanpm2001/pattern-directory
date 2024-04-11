@@ -33,7 +33,7 @@ $encoded_state = wp_json_encode( $init_state );
 >
 	<div class="wp-block-wporg-pattern-preview__container">
 		<iframe
-			title="<?php _e( 'Pattern Preview', 'wporg-patterns' ); ?>"
+			title="<?php esc_html_e( 'Pattern Preview', 'wporg-patterns' ); ?>"
 			tabIndex="-1"
 			src="<?php echo esc_url( $view_url ); ?>"
 			data-wp-style--width="state.iframeWidthCSS"

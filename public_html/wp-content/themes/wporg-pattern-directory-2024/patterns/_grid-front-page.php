@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.Files.FileName -- Allow underscore for pattern partial.
 /**
  * Title: Pattern Grid (Front Page)
  * Slug: wporg-pattern-directory-2024/grid-front-page
@@ -14,7 +15,7 @@
 	<div class="wp-block-group alignwide">
 		<!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 		<div class="wp-block-group">
-			<!-- wp:search {"showLabel":false,"placeholder":"<?php esc_html_e( 'Search patterns', 'wporg-patterns' ); ?>","width":100,"widthUnit":"%","buttonText":"<?php esc_html_e( 'Search', 'wporg' ); ?>","buttonPosition":"button-inside","buttonUseIcon":true,"className":"is-style-secondary-search-control"} /-->
+			<!-- wp:search {"showLabel":false,"placeholder":"<?php esc_html_e( 'Search patterns', 'wporg-patterns' ); ?>","width":100,"widthUnit":"%","buttonText":"<?php esc_html_e( 'Search', 'wporg-patterns' ); ?>","buttonPosition":"button-inside","buttonUseIcon":true,"className":"is-style-secondary-search-control"} /-->
 
 			<!-- wp:wporg/query-total /-->
 		</div>
@@ -54,7 +55,7 @@
 <!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"},"margin":{"top":"var:preset|spacing|40"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-0"}}}},"textColor":"charcoal-0","layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide has-charcoal-0-color has-text-color has-link-color" style="margin-top:var(--wp--preset--spacing--40);padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
 	<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"300","letterSpacing":"-2px"}},"className":"is-style-with-arrow","fontSize":"heading-1","fontFamily":"inter"} -->
-	<h2 class="wp-block-heading is-style-with-arrow has-inter-font-family has-heading-1-font-size" style="font-style:normal;font-weight:300;letter-spacing:-2px"><a href="<?php echo esc_url( home_url( '/archives/' ) ); ?>"><?php _e( 'View all patterns', 'wporg' ); ?></a></h2>
+	<h2 class="wp-block-heading is-style-with-arrow has-inter-font-family has-heading-1-font-size" style="font-style:normal;font-weight:300;letter-spacing:-2px"><a href="<?php echo esc_url( home_url( '/archives/' ) ); ?>"><?php esc_html_e( 'View all patterns', 'wporg-patterns' ); ?></a></h2>
 	<!-- /wp:heading -->
 </div>
 <!-- /wp:group -->

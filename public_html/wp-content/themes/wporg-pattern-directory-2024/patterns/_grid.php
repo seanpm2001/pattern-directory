@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.Files.FileName -- Allow underscore for pattern partial.
 /**
  * Title: Pattern Grid
  * Slug: wporg-pattern-directory-2024/grid
@@ -14,7 +15,7 @@
 	<div class="wp-block-group alignwide">
 		<!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 		<div class="wp-block-group">
-			<!-- wp:search {"showLabel":false,"placeholder":"<?php esc_html_e( 'Search patterns', 'wporg-patterns' ); ?>","width":100,"widthUnit":"%","buttonText":"<?php esc_html_e( 'Search', 'wporg' ); ?>","buttonPosition":"button-inside","buttonUseIcon":true,"className":"is-style-secondary-search-control"} /-->
+			<!-- wp:search {"showLabel":false,"placeholder":"<?php esc_html_e( 'Search patterns', 'wporg-patterns' ); ?>","width":100,"widthUnit":"%","buttonText":"<?php esc_html_e( 'Search', 'wporg-patterns' ); ?>","buttonPosition":"button-inside","buttonUseIcon":true,"className":"is-style-secondary-search-control"} /-->
 
 			<!-- wp:wporg/query-total /-->
 		</div>
@@ -50,23 +51,23 @@
 	<!-- /wp:post-template -->
 
 	<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
-		<!-- wp:query-pagination-previous {"label":"<?php esc_attr_e( 'Previous', 'wporg' ); ?>"} /-->
+		<!-- wp:query-pagination-previous {"label":"<?php esc_attr_e( 'Previous', 'wporg-patterns' ); ?>"} /-->
 
 		<!-- wp:query-pagination-numbers /-->
 
-		<!-- wp:query-pagination-next {"label":"<?php esc_attr_e( 'Next', 'wporg' ); ?>"} /-->
+		<!-- wp:query-pagination-next {"label":"<?php esc_attr_e( 'Next', 'wporg-patterns' ); ?>"} /-->
 	<!-- /wp:query-pagination -->
 
 	<!-- wp:query-no-results -->
 		<!-- wp:heading {"textAlign":"center","level":1,"fontSize":"heading-2"} -->
-		<h1 class="wp-block-heading has-text-align-center has-heading-2-font-size"><?php esc_attr_e( 'No results found', 'wporg' ); ?></h1>
+		<h1 class="wp-block-heading has-text-align-center has-heading-2-font-size"><?php esc_attr_e( 'No results found', 'wporg-patterns' ); ?></h1>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"align":"center"} -->
 		<p class="has-text-align-center">
 			<?php printf(
 				/* translators: %s is url of the pattern archives. */
-				wp_kses_post( __( 'View <a href="%s">all patterns</a> or try a different search. ', 'wporg' ) ),
+				wp_kses_post( __( 'View <a href="%s">all patterns</a> or try a different search. ', 'wporg-patterns' ) ),
 				esc_url( home_url( '/archives/' ) )
 			); ?>
 		</p>

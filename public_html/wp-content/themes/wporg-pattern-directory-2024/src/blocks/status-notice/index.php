@@ -12,6 +12,9 @@ use function WordPressdotorg\Pattern_Directory\Pattern_Post_Type\get_pattern_unl
 
 add_action( 'init', __NAMESPACE__ . '\init' );
 
+/**
+ * Register the block.
+ */
 function init() {
 	register_block_type(
 		__DIR__ . '/../../../build/blocks/status-notice',

@@ -23,7 +23,7 @@
 	<div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
 	
 		<!-- wp:heading {"level":1,"style":{"typography":{"fontSize":"50px","fontStyle":"normal","fontWeight":"400","lineHeight":"1.2"}},"fontFamily":"eb-garamond"} -->
-		<h1 class="wp-block-heading has-eb-garamond-font-family" style="font-size:50px;font-style:normal;font-weight:400;line-height:1.2"><?php esc_html_e( 'Patterns', 'wporg' ); ?></h1>
+		<h1 class="wp-block-heading has-eb-garamond-font-family" style="font-size:50px;font-style:normal;font-weight:400;line-height:1.2"><?php esc_html_e( 'Patterns', 'wporg-patterns' ); ?></h1>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"style":{"typography":{"lineHeight":"2.3"}},"textColor":"white"} -->

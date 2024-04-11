@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.Files.FileName -- Allow underscore for pattern partial.
 /**
  * Title: Pattern Grid (Mine)
  * Slug: wporg-pattern-directory-2024/grid-mine

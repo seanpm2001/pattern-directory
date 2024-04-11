@@ -10,6 +10,9 @@ namespace WordPressdotorg\Theme\Pattern_Directory_2024\Favorite_Button_Block;
 
 add_action( 'init', __NAMESPACE__ . '\init' );
 
+/**
+ * Register the block.
+ */
 function init() {
 	register_block_type( __DIR__ . '/../../../build/blocks/favorite-button' );
 }

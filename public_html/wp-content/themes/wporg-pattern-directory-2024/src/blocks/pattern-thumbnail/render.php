@@ -5,13 +5,13 @@ use function WordPressdotorg\Theme\Pattern_Directory_2024\get_pattern_preview_ur
 if ( ! isset( $block->context['postId'] ) ) {
 	return '';
 }
-$post_id = $block->context['postId'];
+$current_post_id = $block->context['postId'];
 
-$view_url = get_pattern_preview_url( $post_id );
+$view_url = get_pattern_preview_url( $current_post_id );
 $has_link = isset( $attributes['isLink'] ) && true == $attributes['isLink'];
 $is_lazyload = isset( $attributes['lazyLoad'] ) && true === $attributes['lazyLoad'];
 
-$viewport_width = get_post_meta( $post_id, 'wpop_viewport_width', true );
+$viewport_width = get_post_meta( $current_post_id, 'wpop_viewport_width', true );
 
 if ( ! $viewport_width ) {
 	$viewport_width = 1200;
@@ -57,7 +57,7 @@ if ( $has_link ) {
 	tabIndex="-1"
 >
 	<?php if ( $has_link ) : ?>
-	<a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
+	<a href="<?php echo esc_url( get_permalink( $current_post_id ) ); ?>">
 	<?php endif; ?>
 
 	<div

@@ -20,7 +20,7 @@
 	<exclude-pattern>*/build/*</exclude-pattern>
 
 	<!-- Exclude all themes except the pattern directory theme -->
-	<exclude-pattern>/wp-content/themes/(?!pattern-directory)</exclude-pattern>
+	<exclude-pattern>/wp-content/themes/(?!*pattern-directory*)</exclude-pattern>
 
 	<!-- Exclude all plugins except the pattern directory plugin -->
 	<exclude-pattern>/wp-content/plugins/(?!pattern-)</exclude-pattern>

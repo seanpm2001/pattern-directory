@@ -87,7 +87,7 @@ function do_pattern_actions() {
 				// Reload the page with an error flag.
 				$url = add_query_arg(
 					array(
-						'status' => 'draft-failed'
+						'status' => 'draft-failed',
 					),
 					get_the_permalink()
 				);
@@ -109,16 +109,16 @@ function do_pattern_actions() {
 			);
 			if ( $success ) {
 				$args = array(
-					'status' => 'reported'
+					'status' => 'reported',
 				);
 			} else {
 				$args = array(
-					'status' => 'report-failed'
+					'status' => 'report-failed',
 				);
 			}
 		} else {
 			$args = array(
-				'status' => 'logged-out'
+				'status' => 'logged-out',
 			);
 		}
 
@@ -387,6 +387,7 @@ function get_patterns_count() {
 			AND {$wpdb->postmeta}.meta_key = 'wpop_locale'
 			AND {$wpdb->postmeta}.meta_value = '%s'";
 
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		$count = $wpdb->get_var( $wpdb->prepare( $sql, $locale ) );
 		set_transient( $cache_key, $count, $ttl );
 	}

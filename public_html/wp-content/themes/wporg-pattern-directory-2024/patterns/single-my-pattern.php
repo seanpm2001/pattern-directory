@@ -5,10 +5,10 @@
  * Inserter: no
  */
 
-$status = isset( $_GET['status'] ) ? $_GET['status'] : false;
+$action_status = isset( $_GET['status'] ) ? $_GET['status'] : false;
 $notice = '';
 $notice_type = 'warning';
-if ( 'draft-failed' === $status ) {
+if ( 'draft-failed' === $action_status ) {
 	$notice = __( 'Your pattern could not be updated, please try again.', 'wporg-patterns' );
 }
 
@@ -16,11 +16,11 @@ if ( 'draft-failed' === $status ) {
 <!-- wp:group {"layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|50"}}},"align":"full"} -->
 <div class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--50);">
 	<?php if ( $notice ) : ?>
-	<!-- wp:wporg/notice {"align":"wide","type":"<?php echo $notice_type; ?>","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|30"}}}} -->
-	<div class="wp-block-wporg-notice alignwide is-<?php echo $notice_type; ?>-notice" style="margin-bottom:var(--wp--preset--spacing--30);">
+	<!-- wp:wporg/notice {"align":"wide","type":"<?php echo esc_attr( $notice_type ); ?>","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|30"}}}} -->
+	<div class="wp-block-wporg-notice alignwide is-<?php echo esc_attr( $notice_type ); ?>-notice" style="margin-bottom:var(--wp--preset--spacing--30);">
 		<div class="wp-block-wporg-notice__icon"></div>
 		<div class="wp-block-wporg-notice__content">
-			<p><?php echo esc_html( $notice ) ?></p>
+			<p><?php echo esc_html( $notice ); ?></p>
 		</div>
 	</div>
 	<!-- /wp:wporg/notice -->

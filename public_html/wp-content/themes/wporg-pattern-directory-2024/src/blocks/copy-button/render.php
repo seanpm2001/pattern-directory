@@ -1,9 +1,9 @@
 <?php
 
-$variant = $attributes[ 'variant' ] ?? 'default';
+$variant = $attributes['variant'] ?? 'default';
 
-$post_id = $block->context['postId'];
-if ( ! $post_id ) {
+$current_post_id = $block->context['postId'];
+if ( ! $current_post_id ) {
 	return '';
 }
 
@@ -16,7 +16,7 @@ if ( 'small' === $variant ) {
 	$classes[] = 'is-style-outline';
 }
 
-$post = get_post( $post_id );
+$current_post = get_post( $current_post_id );
 ?>
 <div <?php echo get_block_wrapper_attributes( [ 'class' => implode( ' ', $classes ) ] ); // phpcs:ignore ?>>
 	<button
@@ -27,5 +27,5 @@ $post = get_post( $post_id );
 	>
 		<?php echo esc_attr( $label ); ?>
 	</button>
-	<input class="wp-block-wporg-copy-button__content" type="hidden" value="<?php echo rawurlencode( wp_json_encode( $post->post_content ) ); ?>" />
+	<input class="wp-block-wporg-copy-button__content" type="hidden" value="<?php echo rawurlencode( wp_json_encode( $current_post->post_content ) ); ?>" />
 </div>

@@ -10,8 +10,8 @@ if ( ! empty( $block->block_type->view_script ) ) {
 	wp_script_add_data( $block->block_type->view_script, 'group', 1 );
 }
 
-$post_id = $block->context['postId'];
-if ( ! $post_id ) {
+$current_post_id = $block->context['postId'];
+if ( ! $current_post_id ) {
 	return;
 }
 
@@ -23,13 +23,17 @@ if ( ! current_user_can( 'read' ) ) {
 if ( user_has_flagged_pattern() ) {
 	printf(
 		'<div %s>%s</div>',
-		get_block_wrapper_attributes(),
-		__( 'You&#8217;ve reported this pattern.', 'wporg-patterns' )
+		get_block_wrapper_attributes(), // phpcs:ignore
+		esc_html__( 'You&#8217;ve reported this pattern.', 'wporg-patterns' )
 	);
 	return;
 }
 
-$reasons = get_terms( [ 'taxonomy' => FLAG_REASON, 'hide_empty' => false, 'orderby' => 'slug' ] );
+$reasons = get_terms( [
+	'taxonomy' => FLAG_REASON,
+	'hide_empty' => false,
+	'orderby' => 'slug',
+] );
 
 ?>
 <div <?php echo get_block_wrapper_attributes(); // phpcs:ignore ?>>
@@ -57,7 +61,7 @@ $reasons = get_terms( [ 'taxonomy' => FLAG_REASON, 'hide_empty' => false, 'order
 				</h1>
 				<button type="button" data-a11y-dialog-hide aria-label="<?php echo esc_attr_e( 'Close dialog', 'wporg-patterns' ); ?>"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"></path></svg></button>
 			</div>
-			<form method="POST" action="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>">
+			<form method="POST" action="<?php echo esc_url( get_the_permalink( $current_post_id ) ); ?>">
 				<div class="wporg-report-pattern__dialog-body">
 					<fieldset class="wporg-report-pattern__dialog-field">
 						<legend><?php echo esc_html_e( 'Please choose a reason:', 'wporg-patterns' ); ?></legend>
@@ -90,7 +94,7 @@ $reasons = get_terms( [ 'taxonomy' => FLAG_REASON, 'hide_empty' => false, 'order
 						></textarea>
 					</div>
 					<input type="hidden" name="action" value="report" />
-					<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'report-' . $post_id ) ); ?>" />
+					<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'report-' . $current_post_id ) ); ?>" />
 				</div>
 				<div class="wp-block-buttons wporg-report-pattern__dialog-footer">
 					<div class="wp-block-button is-small is-style-outline">

@@ -39,7 +39,7 @@ $content = $p->get_updated_html();
 				data-width="1200"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" aria-hidden="true" focusable="false"><path d="M20.5 16h-.7V8c0-1.1-.9-2-2-2H6.2c-1.1 0-2 .9-2 2v8h-.7c-.8 0-1.5.7-1.5 1.5h20c0-.8-.7-1.5-1.5-1.5zM5.7 8c0-.3.2-.5.5-.5h11.6c.3 0 .5.2.5.5v7.6H5.7V8z"></path></svg>
-				<span><?php _e( 'Wide', 'wporg-patterns' ); ?></span>
+				<span><?php echo esc_attr_x( 'Wide', 'pattern preview size toggle', 'wporg-patterns' ); ?></span>
 			</button>
 		</div>
 		<div class="wp-block-button is-style-toggle is-small">
@@ -50,7 +50,7 @@ $content = $p->get_updated_html();
 				data-width="800"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" aria-hidden="true" focusable="false"><path d="M17 4H7c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm.5 14c0 .3-.2.5-.5.5H7c-.3 0-.5-.2-.5-.5V6c0-.3.2-.5.5-.5h10c.3 0 .5.2.5.5v12zm-7.5-.5h4V16h-4v1.5z"></path></svg>
-				<span><?php _e( 'Medium', 'wporg-patterns' ); ?></span>
+				<span><?php echo esc_attr_x( 'Medium', 'pattern preview size toggle', 'wporg-patterns' ); ?></span>
 			</button>
 		</div>
 		<div class="wp-block-button is-style-toggle is-small">
@@ -61,10 +61,13 @@ $content = $p->get_updated_html();
 				data-width="400"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" aria-hidden="true" focusable="false"><path d="M15 4H9c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm.5 14c0 .3-.2.5-.5.5H9c-.3 0-.5-.2-.5-.5V6c0-.3.2-.5.5-.5h6c.3 0 .5.2.5.5v12zm-4.5-.5h2V16h-2v1.5z"></path></svg>
-				<span><?php _e( 'Narrow', 'wporg-patterns' ); ?></span>
+				<span><?php echo esc_attr_x( 'Narrow', 'pattern preview size toggle', 'wporg-patterns' ); ?></span>
 			</button>
 		</div>
 	</section>
 
-	<?php echo $content; ?>
+	<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content from child blocks.
+		echo $content;
+	?>
 </div>

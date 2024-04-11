@@ -20,6 +20,12 @@ add_filter( 'render_block_core/site-title', __NAMESPACE__ . '\update_site_title'
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\update_site_breadcrumbs' );
 add_filter( 'render_block_data', __NAMESPACE__ . '\modify_pattern_include' );
 
+/**
+ * Register block bindings.
+ *
+ * This registers some sources which can be used to dynamically inject content
+ * into block text or attributes.
+ */
 function register_block_bindings() {
 	register_block_bindings_source(
 		'wporg-pattern/edit-label',
@@ -33,7 +39,7 @@ function register_block_bindings() {
 					__( 'Edit <span class="screen-reader-text">"%s"</span>', 'wporg-patterns' ),
 					get_the_title( $post_id )
 				);
-			}
+			},
 		)
 	);
 
@@ -45,7 +51,7 @@ function register_block_bindings() {
 			'get_value_callback' => function( $args, $block ) {
 				$post_id = $block->context['postId'];
 				return site_url( "pattern/$post_id/edit/" );
-			}
+			},
 		)
 	);
 }
@@ -108,10 +114,10 @@ function update_query_total_label( $label, $found_posts ) {
 		$count = get_patterns_count();
 
 		/* translators: %s: the result count. */
-		return sprintf( _n( '%s pattern', '%s patterns', $count, 'wporg' ), number_format_i18n( $count ) );
+		return sprintf( _n( '%s pattern', '%s patterns', $count, 'wporg-patterns' ), number_format_i18n( $count ) );
 	}
 	/* translators: %s: the result count. */
-	return _n( '%s pattern', '%s patterns', $found_posts, 'wporg' );
+	return _n( '%s pattern', '%s patterns', $found_posts, 'wporg-patterns' );
 }
 
 /**
@@ -124,34 +130,34 @@ function get_curation_options( $options ) {
 	global $wp_query;
 	$current = strtolower( $wp_query->get( 'curation' ) );
 
-	$label = __( 'Filter by', 'wporg' );
+	$label = __( 'Filter by', 'wporg-patterns' );
 	switch ( $current ) {
 		case 'community':
-			$label = __( 'Community', 'wporg' );
+			$label = _x( 'Community', 'filter option label', 'wporg-patterns' );
 			break;
 		case 'core':
-			$label = __( 'Curated', 'wporg' );
+			$label = _x( 'Curated', 'filter option label', 'wporg-patterns' );
 			break;
 		default:
-			$label = __( 'All', 'wporg' );
+			$label = _x( 'All', 'filter option label', 'wporg-patterns' );
 			break;
 	}
 
 	// Show the correct filters on the front page.
 	if ( is_front_page() ) {
 		$current = 'core';
-		$label = __( 'Curated', 'wporg' );
+		$label = _x( 'Curated', 'filter option label', 'wporg-patterns' );
 	}
 
 	return array(
 		'label' => $label,
-		'title' => __( 'Filter', 'wporg' ),
+		'title' => __( 'Filter', 'wporg-patterns' ),
 		'key' => 'curation',
 		'action' => get_filter_action_url(),
 		'options' => array(
-			'' => __( 'All', 'wporg' ),
-			'community' => __( 'Community', 'wporg' ),
-			'core' => __( 'Curated', 'wporg' ),
+			'' => _x( 'All', 'filter option label', 'wporg-patterns' ),
+			'community' => _x( 'Community', 'filter option label', 'wporg-patterns' ),
+			'core' => _x( 'Curated', 'filter option label', 'wporg-patterns' ),
 		),
 		'selected' => [ $current ],
 	);
@@ -174,38 +180,43 @@ function get_sort_options( $options ) {
 		$sort = 'favorite_count_desc';
 	}
 
-	$label = __( 'Sort', 'wporg' );
+	$label = __( 'Sort', 'wporg-patterns' );
 	switch ( $sort ) {
 		case 'date_desc':
-			$label = __( 'Newest', 'wporg' );
+			$label = __( 'Newest', 'wporg-patterns' );
 			break;
 		case 'date_asc':
-			$label = __( 'Oldest', 'wporg' );
+			$label = __( 'Oldest', 'wporg-patterns' );
 			break;
 		case 'favorite_count_desc':
-			$label = __( 'Popular', 'wporg' );
+			$label = __( 'Popular', 'wporg-patterns' );
 			break;
 	}
 
 	// Show the correct filters on the front page.
 	if ( is_front_page() ) {
 		$sort = 'favorite_count_desc';
-		$label = __( 'Popular', 'wporg' );
+		$label = __( 'Popular', 'wporg-patterns' );
 	}
 
 	$options = array(
-		'date_desc' => __( 'Newest', 'wporg' ),
-		'date_asc' => __( 'Oldest', 'wporg' ),
+		'date_desc' => __( 'Newest', 'wporg-patterns' ),
+		'date_asc' => __( 'Oldest', 'wporg-patterns' ),
 	);
 
 	// These pages don't support sorting by favorite count.
 	if ( ! is_page( [ 'my-patterns', 'favorites' ] ) ) {
-		$options = array_merge( [ 'favorite_count_desc' => __( 'Popular', 'wporg' ) ], $options );
+		$options = array_merge(
+			array(
+				'favorite_count_desc' => __( 'Popular', 'wporg-patterns' ),
+			),
+			$options
+		);
 	}
 
 	return array(
 		'label' => $label,
-		'title' => __( 'Sort', 'wporg' ),
+		'title' => $label,
 		'key' => 'orderby',
 		'action' => get_filter_action_url(),
 		'options' => $options,
@@ -241,10 +252,10 @@ function inject_other_filters( $key ) {
 	}
 
 	if ( is_front_page() ) {
-		if ( $key !== 'curation' ) {
+		if ( 'curation' !== $key ) {
 			printf( '<input type="hidden" name="curation" value="core" />' );
 		}
-		if ( $key !== 'orderby' ) {
+		if ( 'orderby' !== $key ) {
 			printf( '<input type="hidden" name="orderby" value="favorite_count_desc" />' );
 		}
 	}
@@ -304,17 +315,17 @@ function add_site_navigation_menus( $menus ) {
 	$current_status = isset( $wp_query->query['status'] ) ? $wp_query->query['status'] : false;
 	$statuses = array(
 		array(
-			'label' => __( 'Draft', 'wporg' ),
+			'label' => __( 'Draft', 'wporg-patterns' ),
 			'url' => add_query_arg( 'status', 'draft', get_permalink() ),
 			'className' => 'draft' === $current_status ? 'current-menu-item' : '',
 		),
 		array(
-			'label' => __( 'Pending Review', 'wporg' ),
+			'label' => __( 'Pending Review', 'wporg-patterns' ),
 			'url' => add_query_arg( 'status', 'pending', get_permalink() ),
 			'className' => 'pending' === $current_status ? 'current-menu-item' : '',
 		),
 		array(
-			'label' => __( 'Published', 'wporg' ),
+			'label' => __( 'Published', 'wporg-patterns' ),
 			'url' => add_query_arg( 'status', 'publish', get_permalink() ),
 			'className' => 'publish' === $current_status ? 'current-menu-item' : '',
 		),
@@ -327,7 +338,7 @@ function add_site_navigation_menus( $menus ) {
 			'slug' => array(
 				// `query` is "Posts".
 				'featured', 'query', 'text', 'gallery', 'call-to-action',
-				'banner', 'header', 'footer', 'wireframe'
+				'banner', 'header', 'footer', 'wireframe',
 			),
 			'orderby' => 'slug__in',
 		)
@@ -378,13 +389,13 @@ function update_archive_title( $block_content, $block, $instance ) {
 		if ( ! empty( $term_names ) ) {
 			$term_names = wp_list_pluck( $term_names, 'name' );
 			// translators: %s list of terms used for filtering.
-			$title = sprintf( __( 'Patterns: %s', 'wporg' ), implode( ', ', $term_names ) );
+			$title = sprintf( __( 'Patterns: %s', 'wporg-patterns' ), implode( ', ', $term_names ) );
 		} else {
 			$author = isset( $wp_query->query['author_name'] ) ? get_user_by( 'slug', $wp_query->query['author_name'] ) : false;
 			if ( $author ) {
-				$title = sprintf( __( 'Author: %s', 'wporg' ), $author->display_name );
+				$title = sprintf( __( 'Author: %s', 'wporg-patterns' ), $author->display_name );
 			} else {
-				$title = __( 'All patterns', 'wporg' );
+				$title = __( 'All patterns', 'wporg-patterns' );
 			}
 		}
 
@@ -410,7 +421,7 @@ function update_archive_title( $block_content, $block, $instance ) {
 /**
  * Update the archive title for all filter views.
  *
- * @param string   $block_content The block content.
+ * @param string $block_content The block content.
  */
 function update_site_title( $block_content, $block, $instance ) {
 	return str_replace(
@@ -432,7 +443,7 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 	$breadcrumbs = array(
 		array(
 			'url' => home_url(),
-			'title' => __( 'Home', 'wporg' ),
+			'title' => __( 'Home', 'wporg-patterns' ),
 		),
 	);
 
@@ -453,7 +464,7 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 		if ( isset( $wp_query->query['status'] ) ) {
 			$breadcrumbs[] = array(
 				'url' => false,
-				'title' => get_post_status_object( $wp_query->query['status'] )->label
+				'title' => get_post_status_object( $wp_query->query['status'] )->label,
 			);
 		}
 		return $breadcrumbs;
@@ -462,11 +473,11 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 	if ( is_search() ) {
 		$breadcrumbs[] = array(
 			'url' => home_url( '/archives/' ),
-			'title' => __( 'All patterns', 'wporg' ),
+			'title' => __( 'All patterns', 'wporg-patterns' ),
 		);
 		$breadcrumbs[] = array(
 			'url' => false,
-			'title' => __( 'Search results', 'wporg' ),
+			'title' => __( 'Search results', 'wporg-patterns' ),
 		);
 		return $breadcrumbs;
 	}
@@ -478,13 +489,13 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 
 		$breadcrumbs[] = array(
 			'url' => home_url( '/archives/' ),
-			'title' => __( 'All patterns', 'wporg' ),
+			'title' => __( 'All patterns', 'wporg-patterns' ),
 		);
 
 		if ( $author ) {
 			$breadcrumbs[] = array(
 				'url' => get_author_posts_url( $author->ID ),
-				'title' => sprintf( __( 'Author: %s', 'wporg' ), $author->display_name ),
+				'title' => sprintf( __( 'Author: %s', 'wporg-patterns' ), $author->display_name ),
 			);
 		}
 
@@ -499,7 +510,7 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 	}
 
 	// Last item should be "current", no URL.
-	$breadcrumbs[count($breadcrumbs) - 1]['url'] = false;
+	$breadcrumbs[ count( $breadcrumbs ) - 1 ]['url'] = false;
 
 	return $breadcrumbs;
 }

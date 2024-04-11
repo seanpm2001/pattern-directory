@@ -1,9 +1,10 @@
 <?php
+// phpcs:disable WordPress.Files.FileName -- Allow underscore for pattern partial.
 /**
  * Title: Logged out (favorites)
  * Slug: wporg-pattern-directory-2024/logged-out-favorites
  * Inserter: no
- * 
+ *
  * This pattern is swapped out automatically when a logged out user visits `/favorites/`.
  */
 

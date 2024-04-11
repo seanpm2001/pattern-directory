@@ -2,10 +2,10 @@
 
 use function WordPressdotorg\Pattern_Directory\Favorite\{get_favorite_count, is_favorite};
 
-$variant = $attributes[ 'variant' ] ?? 'default';
+$variant = $attributes['variant'] ?? 'default';
 
-$post_id = $block->context['postId'];
-if ( ! $post_id ) {
+$current_post_id = $block->context['postId'];
+if ( ! $current_post_id ) {
 	return '';
 }
 
@@ -18,15 +18,15 @@ if ( ! $user_id && 'small' !== $variant ) {
 // Manually enqueue this script, so that it's available for the interactivity view script.
 wp_enqueue_script( 'wp-api-fetch' );
 
-$is_favorite = is_favorite( $post_id, $user_id );
+$is_favorite = is_favorite( $current_post_id, $user_id );
 $classes = [ 'is-small' ];
 if ( 'small' === $variant ) {
 	$classes[] = 'is-variant-small';
 }
-$classes = implode( ' ',  $classes );
+$classes = implode( ' ', $classes );
 
 $tag_name = ! $user_id ? 'span' : 'button';
-$favorite_count = get_favorite_count( $post_id );
+$favorite_count = get_favorite_count( $current_post_id );
 
 $add_label = __( 'Add to favorites', 'wporg-patterns' );
 $remove_label = __( 'Remove from favorites', 'wporg-patterns' );
@@ -42,14 +42,14 @@ $sr_label = sprintf(
 
 // Initial state to pass to Interactivity API.
 $init_state = [
-	'postId' => $post_id,
+	'postId' => $current_post_id,
 	'isFavorite' => $is_favorite,
 	'count' => $favorite_count,
 	'label' => [
 		'add' => $add_label,
 		'remove' => $remove_label,
 		'screenReader' => __( 'Favorited %s times', 'wporg-patterns' ),
-	]
+	],
 ];
 $encoded_state = wp_json_encode( $init_state );
 
@@ -60,7 +60,7 @@ $encoded_state = wp_json_encode( $init_state );
 	data-wp-context="<?php echo esc_attr( $encoded_state ); ?>"
 	data-wp-class--is-favorite="context.isFavorite"
 >
-	<<?php echo $tag_name; ?>
+	<<?php echo esc_attr( $tag_name ); ?>
 		class="wporg-favorite-button__button"
 		disabled="disabled"
 		data-wp-bind--disabled="!context.postId"
@@ -76,10 +76,10 @@ $encoded_state = wp_json_encode( $init_state );
 			<span class="screen-reader-text" data-wp-text="state.labelScreenReader">
 				<?php echo esc_html( $sr_label ); ?>
 			</span>
-			<span aria-hidden="true" data-wp-text="state.labelCount"><?php echo $favorite_count; ?></span>
+			<span aria-hidden="true" data-wp-text="state.labelCount"><?php echo esc_html( $favorite_count ); ?></span>
 		</span>
 		<span class="wporg-favorite-button__label screen-reader-text" data-wp-text="state.labelAction">
-			<?php echo $is_favorite ? $remove_label : $add_label; ?>
+			<?php echo esc_html( $is_favorite ? $remove_label : $add_label ); ?>
 		</span>
-	</<?php echo $tag_name; ?>>
+	</<?php echo esc_attr( $tag_name ); ?>>
 </div>
