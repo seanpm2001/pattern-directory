@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "74ea5900c960f7fe6903d62deaf576ae",
+    "content-hash": "b9e893473fca2901ccf72d2d3c29e7a9",
     "packages": [
         {
             "name": "adhocore/jwt",
@@ -236,15 +236,15 @@
         },
         {
             "name": "wpackagist-plugin/gutenberg",
-            "version": "18.0.0",
+            "version": "17.8.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/gutenberg/",
-                "reference": "tags/18.0.0"
+                "reference": "tags/17.8.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/gutenberg.18.0.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/gutenberg.17.8.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -319,12 +319,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/wporg-mu-plugins.git",
-                "reference": "512a1fd8b361727f3dafc5de1a4a74196dadfc79"
+                "reference": "2ef6485db0cfeb1411e8e24bf60832bd8147ea6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress/wporg-mu-plugins/zipball/512a1fd8b361727f3dafc5de1a4a74196dadfc79",
-                "reference": "512a1fd8b361727f3dafc5de1a4a74196dadfc79",
+                "url": "https://api.github.com/repos/WordPress/wporg-mu-plugins/zipball/2ef6485db0cfeb1411e8e24bf60832bd8147ea6c",
+                "reference": "2ef6485db0cfeb1411e8e24bf60832bd8147ea6c",
                 "shasum": ""
             },
             "require": {
@@ -365,7 +365,7 @@
                 "source": "https://github.com/WordPress/wporg-mu-plugins/tree/build",
                 "issues": "https://github.com/WordPress/wporg-mu-plugins/issues"
             },
-            "time": "2024-04-05T19:05:56+00:00"
+            "time": "2024-04-09T17:31:18+00:00"
         }
     ],
     "packages-dev": [
@@ -2551,7 +2551,7 @@
         },
         {
             "name": "wp-phpunit/wp-phpunit",
-            "version": "6.5.0",
+            "version": "6.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-phpunit/wp-phpunit.git",
