@@ -38,7 +38,7 @@ $encoded_state = wp_json_encode( $init_state );
 		</svg>
 		<?php
 		echo wp_kses_post(
-			printf(
+			sprintf(
 				__( 'Delete <span class="screen-reader-text">"%s"</span>', 'wporg-patterns' ),
 				get_the_title( $current_post_id )
 			)
