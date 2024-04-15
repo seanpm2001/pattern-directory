@@ -34,10 +34,17 @@ if ( 'report-failed' === $action_status ) {
 
 	<!-- wp:post-title {"align":"wide","fontSize":"heading-3"} /-->
 
-	<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"},"align":"wide"} -->
+	<!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"},"align":"wide"} -->
 	<div class="wp-block-group alignwide">
 		<!-- wp:wporg/copy-button /-->
 		<!-- wp:wporg/favorite-button /-->
+		<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group">
+			<!-- wp:avatar {"size":24,"style":{"border":{"radius":"100%"}}} /-->
+
+			<!-- wp:post-author-name {"style":{"typography":{"fontStyle":"normal"},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-1"}}}},"textColor":"charcoal-1","fontSize":"small"} /-->
+		</div>
+		<!-- /wp:group -->
 	</div>
 	<!-- /wp:group -->
 
