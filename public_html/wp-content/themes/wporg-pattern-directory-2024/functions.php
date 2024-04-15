@@ -456,8 +456,7 @@ function redirect_term_archives() {
  */
 function add_social_meta_tags() {
 	$og_fields     = [];
-	// Final image TBD.
-	$default_image = function_exists( '\WordPressdotorg\MU_Plugins\Site_Branding\jetpack_open_graph_image_default' ) ? \WordPressdotorg\MU_Plugins\Site_Branding\jetpack_open_graph_image_default() : '';
+	$default_image = 'https://s.w.org/patterns/files/2024/04/patterns-ogimage.png';
 	$site_title    = function_exists( '\WordPressdotorg\site_brand' ) ? \WordPressdotorg\site_brand() : 'WordPress.org';
 
 	if ( is_front_page() || is_home() ) {
