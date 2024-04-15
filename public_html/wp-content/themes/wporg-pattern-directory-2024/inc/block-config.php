@@ -222,7 +222,7 @@ function get_sort_options( $options ) {
 
 	return array(
 		'label' => $label,
-		'title' => $label,
+		'title' => __( 'Sort', 'wporg-patterns' ),
 		'key' => 'orderby',
 		'action' => get_filter_action_url(),
 		'options' => $options,
