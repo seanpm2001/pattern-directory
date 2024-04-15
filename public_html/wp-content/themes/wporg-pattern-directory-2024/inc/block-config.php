@@ -406,6 +406,10 @@ function update_archive_title( $block_content, $block, $instance ) {
 			}
 		}
 
+		if ( is_search() ) {
+			$title = __( 'Search results', 'wporg-patterns' );
+		}
+
 		$tag_name           = isset( $attributes['level'] ) ? 'h' . (int) $attributes['level'] : 'h1';
 		$align_class_name   = empty( $attributes['textAlign'] ) ? '' : "has-text-align-{$attributes['textAlign']}";
 

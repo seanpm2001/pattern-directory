@@ -32,7 +32,7 @@ if ( 'report-failed' === $action_status ) {
 	<!-- /wp:wporg/notice -->
 	<?php endif; ?>
 
-	<!-- wp:post-title {"align":"wide","fontSize":"heading-3"} /-->
+	<!-- wp:post-title {"level":1,"align":"wide","fontSize":"heading-3"} /-->
 
 	<!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"},"align":"wide"} -->
 	<div class="wp-block-group alignwide">

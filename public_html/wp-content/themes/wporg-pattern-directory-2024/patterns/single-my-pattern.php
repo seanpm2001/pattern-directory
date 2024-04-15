@@ -28,7 +28,7 @@ if ( 'draft-failed' === $action_status ) {
 	<!-- wp:wporg/status-notice {"align":"wide"} /-->
 	<?php endif; ?>
 
-	<!-- wp:post-title {"align":"wide","fontSize":"heading-3"} /-->
+	<!-- wp:post-title {"level":1,"align":"wide","fontSize":"heading-3"} /-->
 
 	<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"},"align":"wide"} -->
 	<div class="wp-block-group alignwide">
