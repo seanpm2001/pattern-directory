@@ -392,7 +392,7 @@ function update_archive_title( $block_content, $block, $instance ) {
 			return '';
 		}
 
-		$term_names = get_applied_filter_list();
+		$term_names = get_applied_filter_list( false );
 		if ( ! empty( $term_names ) ) {
 			$term_names = wp_list_pluck( $term_names, 'name' );
 			// translators: %s list of terms used for filtering.
