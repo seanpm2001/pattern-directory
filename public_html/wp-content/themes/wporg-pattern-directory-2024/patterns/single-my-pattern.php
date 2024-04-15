@@ -63,8 +63,8 @@ if ( 'draft-failed' === $action_status ) {
 			<div class="wp-block-button is-style-toggle is-small"><a href="[pattern_edit_link]" class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Edit', 'wporg-patterns' ); ?></a></div>
 			<!-- /wp:button -->
 
-			<!-- wp:button {"className":"is-style-toggle is-small"} -->
-			<div class="wp-block-button is-style-toggle is-small"><a href="[pattern_draft_link]" class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Revert to draft', 'wporg-patterns' ); ?></a></div>
+			<!-- wp:button {"className":"is-style-toggle is-small is-draft-button"} -->
+			<div class="wp-block-button is-style-toggle is-small is-draft-button"><a href="[pattern_draft_link]" class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Revert to draft', 'wporg-patterns' ); ?></a></div>
 			<!-- /wp:button -->
 
 			<!-- wp:wporg/delete-button /-->

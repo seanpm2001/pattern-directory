@@ -33,6 +33,7 @@ add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\custom_query_loop_b
 add_action( 'template_redirect', __NAMESPACE__ . '\redirect_term_archives' );
 add_action( 'wp_head', __NAMESPACE__ . '\add_social_meta_tags', 5 );
 add_filter( 'document_title_parts', __NAMESPACE__ . '\set_document_title' );
+add_filter( 'body_class', __NAMESPACE__ . '\add_status_body_class' );
 
 add_action(
 	'init',
@@ -551,4 +552,24 @@ function set_document_title( $title ) {
 	}
 
 	return $title;
+}
+
+/**
+ * Filter the body class on single "owned" patterns.
+ *
+ * This allows for hiding some status-specific buttons.
+ *
+ * @param string[] $classes An array of body class names.
+ *
+ * @return string[] Filtered classes.
+ */
+function add_status_body_class( $classes ) {
+	if ( ! is_singular( POST_TYPE ) || get_current_user_id() !== get_the_author_meta( 'ID' ) ) {
+		return $classes;
+	}
+	$status = get_post_status();
+	if ( $status ) {
+		$classes[] = 'is-status-' . $status;
+	}
+	return $classes;
 }
