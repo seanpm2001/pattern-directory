@@ -38,7 +38,7 @@
 		flex-basis: 0;
 	}
 
-	&.has-loaded {
+	&.has-loaded:not(.has-error) {
 		img {
 			display: block;
 		}

@@ -54,6 +54,7 @@ if ( $has_link ) {
 	data-wp-context="<?php echo esc_attr( $encoded_state ); ?>"
 	data-wp-init="callbacks.init"
 	data-wp-class--has-loaded="state.hasLoaded"
+	data-wp-class--has-error="state.hasError"
 	tabIndex="-1"
 >
 	<?php if ( $has_link ) : ?>
@@ -72,7 +73,7 @@ if ( $has_link ) {
 		/>
 		<span
 			data-wp-bind--hidden="state.base64Image"
-			data-wp-class--screen-reader-text="!state.base64Image"
+			class="screen-reader-text"
 			data-wp-text="context.alt"
 		></span>
 	</div>
