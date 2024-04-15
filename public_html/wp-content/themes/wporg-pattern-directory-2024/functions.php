@@ -428,6 +428,12 @@ function redirect_term_archives() {
 	// True on the `/tag/…` URLs, and false on `/archive/?tag…` URLs.
 	$is_term_archive = is_tag() || is_category() || is_tax();
 
+	// Don't redirect on favorites or author archives.
+	$bypass_redirect = is_page( 'favorites' ) || is_author();
+	if ( $bypass_redirect ) {
+		return;
+	}
+
 	// If there is only one term applied, and we're not already on a term
 	// archive, redirect to the main term archive URL.
 	if ( count( $terms ) === 1 && ! $is_term_archive ) {

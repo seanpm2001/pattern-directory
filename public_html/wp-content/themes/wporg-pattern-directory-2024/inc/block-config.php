@@ -359,8 +359,9 @@ function add_site_navigation_menus( $menus ) {
 			if ( in_array( $term->slug, $current_cats ) ) {
 				$cat['className'] = 'current-menu-item';
 			}
-			if ( is_page( 'favorites' ) ) {
-				$cat['url'] = add_query_arg( 'pattern-categories', $term->slug, get_permalink() );
+			if ( is_page( 'favorites' ) || is_author() ) {
+				global $wp;
+				$cat['url'] = add_query_arg( 'pattern-categories', $term->slug, home_url( $wp->request ) );
 			}
 
 			$categories[] = $cat;
