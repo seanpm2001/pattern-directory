@@ -76,7 +76,7 @@ $html_id = wp_unique_id( 'pattern-preview-help-' );
 		<div class="wporg-pattern-preview__drag-handle">
 			<button
 				class="wporg-pattern-view-control__drag-handle is-left"
-				aria-label="<?php esc_attr( 'Drag to resize', 'wporg-patterns' ); ?>"
+				aria-label="<?php esc_attr_e( 'Drag to resize', 'wporg-patterns' ); ?>"
 				aria-describedby="<?php echo esc_attr( $html_id ); ?>-left"
 				data-direction="left"
 				data-wp-on--keydown="actions.onLeftKeyDown"
@@ -90,7 +90,7 @@ $html_id = wp_unique_id( 'pattern-preview-help-' );
 		<div class="wporg-pattern-preview__drag-handle">
 			<button
 				class="wporg-pattern-view-control__drag-handle is-right"
-				aria-label="<?php esc_attr( 'Drag to resize', 'wporg-patterns' ); ?>"
+				aria-label="<?php esc_attr_e( 'Drag to resize', 'wporg-patterns' ); ?>"
 				aria-describedby="<?php echo esc_attr( $html_id ); ?>-right"
 				data-direction="right"
 				data-wp-on--keydown="actions.onRightKeyDown"
