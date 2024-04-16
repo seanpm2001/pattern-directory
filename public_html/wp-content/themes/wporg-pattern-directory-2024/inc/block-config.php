@@ -297,7 +297,7 @@ function inject_category_search_block( $block_content ) {
  * Provide a list of local navigation menus.
  */
 function add_site_navigation_menus( $menus ) {
-	global $wp_query;
+	global $wp_query, $wp;
 
 	$menu = array();
 	$categories = array();
@@ -320,6 +320,11 @@ function add_site_navigation_menus( $menus ) {
 
 	$current_status = isset( $wp_query->query['status'] ) ? $wp_query->query['status'] : false;
 	$statuses = array(
+		array(
+			'label' => __( 'All', 'wporg-patterns' ),
+			'url' => get_permalink(),
+			'className' => ! $current_status ? 'current-menu-item' : '',
+		),
 		array(
 			'label' => __( 'Draft', 'wporg-patterns' ),
 			'url' => add_query_arg( 'status', 'draft', get_permalink() ),
@@ -360,12 +365,17 @@ function add_site_navigation_menus( $menus ) {
 				$cat['className'] = 'current-menu-item';
 			}
 			if ( is_page( 'favorites' ) || is_author() ) {
-				global $wp;
 				$cat['url'] = add_query_arg( 'pattern-categories', $term->slug, home_url( $wp->request ) );
 			}
 
 			$categories[] = $cat;
 		}
+		$all_link = array(
+			'label' => __( 'All', 'wporg-patterns' ),
+			'url' => is_page( 'favorites' ) || is_author() ? home_url( $wp->request ) : home_url( '/archives/' ),
+			'className' => empty( $current_cats ) ? 'current-menu-item' : '',
+		);
+		array_unshift( $categories, $all_link );
 	}
 
 	return array(
