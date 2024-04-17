@@ -34,6 +34,7 @@ add_action( 'template_redirect', __NAMESPACE__ . '\redirect_term_archives' );
 add_action( 'wp_head', __NAMESPACE__ . '\add_social_meta_tags', 5 );
 add_filter( 'document_title_parts', __NAMESPACE__ . '\set_document_title' );
 add_filter( 'body_class', __NAMESPACE__ . '\add_status_body_class' );
+add_filter( 'frontpage_template_hierarchy', __NAMESPACE__ . '\use_archive_template_paged' );
 
 add_action(
 	'init',
@@ -426,12 +427,12 @@ function user_has_flagged_pattern() {
  * Redirect category and tag archives to their canonical URLs.
  *
  * This prevents double URLs for every category/tag, e.g.,
- * `/archives/?pattern-categories=footer` and `/categories/footer/`.
+ * `/?pattern-categories=footer` and `/categories/footer/`.
  */
 function redirect_term_archives() {
 	global $wp_query;
 	$terms = get_applied_filter_list( false );
-	// True on the `/tag/…` URLs, and false on `/archive/?tag…` URLs.
+	// True on the `/tag/…` URLs, and false on `/?tag…` URLs.
 	$is_term_archive = is_tag() || is_category() || is_tax();
 
 	// Don't redirect on favorites or author archives.
@@ -576,4 +577,16 @@ function add_status_body_class( $classes ) {
 		$classes[] = 'is-status-' . $status;
 	}
 	return $classes;
+}
+
+/**
+ * Switch to the archive.html template on paged requests.
+ *
+ * @param string[] $templates A list of template candidates, in descending order of priority.
+ */
+function use_archive_template_paged( $templates ) {
+	if ( is_paged() ) {
+		array_unshift( $templates, 'archive.html' );
+	}
+	return $templates;
 }

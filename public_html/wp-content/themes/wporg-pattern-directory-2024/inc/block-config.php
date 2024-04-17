@@ -105,7 +105,7 @@ function get_filter_action_url() {
 	if ( is_page( 'favorites' ) || is_page( 'my-patterns' ) || is_author() ) {
 		return home_url( $wp->request );
 	}
-	return home_url( '/archives/' );
+	return home_url( '/' );
 }
 
 /**
@@ -384,7 +384,7 @@ function add_site_navigation_menus( $menus ) {
 		}
 		$all_link = array(
 			'label' => __( 'All', 'wporg-patterns' ),
-			'url' => is_page( 'favorites' ) || is_author() ? home_url( $wp->request ) : home_url( '/archives/' ),
+			'url' => is_page( 'favorites' ) || is_author() ? home_url( $wp->request ) : home_url( '/' ),
 			'className' => empty( $current_cats ) ? 'current-menu-item' : '',
 		);
 		array_unshift( $categories, $all_link );
@@ -473,12 +473,7 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 	$term_names = get_applied_filter_list( false );
 
 	// Build up the breadcrumbs from scratch.
-	$breadcrumbs = array(
-		array(
-			'url' => home_url(),
-			'title' => __( 'Home', 'wporg-patterns' ),
-		),
-	);
+	$breadcrumbs = array();
 
 	if ( is_page() || is_single() ) {
 		$breadcrumbs[] = array(
@@ -505,7 +500,7 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 
 	if ( is_search() ) {
 		$breadcrumbs[] = array(
-			'url' => home_url( '/archives/' ),
+			'url' => home_url( '/' ),
 			'title' => __( 'All patterns', 'wporg-patterns' ),
 		);
 		$breadcrumbs[] = array(
@@ -521,7 +516,7 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 		$author = isset( $wp_query->query['author_name'] ) ? get_user_by( 'slug', $wp_query->query['author_name'] ) : false;
 
 		$breadcrumbs[] = array(
-			'url' => home_url( '/archives/' ),
+			'url' => home_url( '/' ),
 			'title' => __( 'All patterns', 'wporg-patterns' ),
 		);
 

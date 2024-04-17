@@ -48,6 +48,11 @@ body.page .wp-block-wporg-local-navigation-bar .wp-block-query-title {
 	display: none;
 }
 
+/* Hide the grid `h1` on the homepage, as the header has an h1. */
+body.blog:not(.paged) .wp-block-query .wp-block-query-title {
+	display: none;
+}
+
 /*
  * A linked post title should be blueberry (needed to override parent setting,
  * where post title is the same for linked or not).
