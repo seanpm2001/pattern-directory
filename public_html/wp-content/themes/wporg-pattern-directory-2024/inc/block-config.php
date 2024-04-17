@@ -162,12 +162,6 @@ function get_curation_options( $options ) {
 			break;
 	}
 
-	// Show the correct filters on the front page.
-	if ( is_front_page() ) {
-		$current = 'core';
-		$label = _x( 'Curated', 'filter option label', 'wporg-patterns' );
-	}
-
 	return array(
 		'label' => $label,
 		'title' => __( 'Filter', 'wporg-patterns' ),
@@ -197,11 +191,6 @@ function get_sort_options( $options ) {
 	// Popular is a special case since it's not a true "order" value.
 	if ( 'meta_value_num' === $orderby && 'wporg-pattern-favorites' === $wp_query->get( 'meta_key' ) ) {
 		$sort = 'favorite_count_desc';
-	}
-
-	// Show the correct filters on the front page.
-	if ( is_front_page() ) {
-		$sort = 'date_desc';
 	}
 
 	$label = __( 'Sort', 'wporg-patterns' );
@@ -266,15 +255,6 @@ function inject_other_filters( $key ) {
 		$values = (array) $wp_query->query[ $query_var ];
 		foreach ( $values as $value ) {
 			printf( '<input type="hidden" name="%s" value="%s" />', esc_attr( $query_var ), esc_attr( $value ) );
-		}
-	}
-
-	if ( is_front_page() ) {
-		if ( 'curation' !== $key ) {
-			printf( '<input type="hidden" name="curation" value="core" />' );
-		}
-		if ( 'orderby' !== $key ) {
-			printf( '<input type="hidden" name="orderby" value="date_desc" />' );
 		}
 	}
 
