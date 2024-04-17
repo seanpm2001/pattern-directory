@@ -158,6 +158,11 @@ function modify_patterns_query( $query ) {
 	// If `curation` is passed and either `core` or `community`, we should
 	// filter the result. If `curation=all`, no filtering is needed.
 	$curation = $query->get( 'curation' );
+	if ( ! $curation && ! is_author() ) {
+		$query->set( 'curation', 'core' );
+		$curation = 'core';
+	}
+
 	if ( $curation ) {
 		$tax_query = isset( $query->tax_query->queries ) ? $query->tax_query->queries : [];
 		if ( 'core' === $curation ) {

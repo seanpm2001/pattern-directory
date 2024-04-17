@@ -162,7 +162,7 @@ function get_curation_options( $options ) {
 		'key' => 'curation',
 		'action' => get_filter_action_url(),
 		'options' => array(
-			'' => _x( 'All', 'filter option label', 'wporg-patterns' ),
+			'all' => _x( 'All', 'filter option label', 'wporg-patterns' ),
 			'community' => _x( 'Community', 'filter option label', 'wporg-patterns' ),
 			'core' => _x( 'Curated', 'filter option label', 'wporg-patterns' ),
 		),
