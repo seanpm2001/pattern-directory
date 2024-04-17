@@ -116,6 +116,8 @@ function get_filter_action_url() {
  * @return string Updated string with total placeholder.
  */
 function update_query_total_label( $label, $found_posts ) {
+	global $wp_query;
+
 	if ( is_front_page() ) {
 		// Override the current query count, instead display the total number of patterns.
 		$count = get_patterns_count();
@@ -123,6 +125,16 @@ function update_query_total_label( $label, $found_posts ) {
 		/* translators: %s: the result count. */
 		return sprintf( _n( '%s pattern', '%s patterns', $count, 'wporg-patterns' ), number_format_i18n( $count ) );
 	}
+
+	$current = strtolower( $wp_query->get( 'curation' ) );
+	if ( 'core' === $current ) {
+		/* translators: %s: the result count. */
+		return _n( '%s curated pattern', '%s curated patterns', $found_posts, 'wporg-patterns' );
+	} else if ( 'community' === $current ) {
+		/* translators: %s: the result count. */
+		return _n( '%s community pattern', '%s community patterns', $found_posts, 'wporg-patterns' );
+	}
+
 	/* translators: %s: the result count. */
 	return _n( '%s pattern', '%s patterns', $found_posts, 'wporg-patterns' );
 }
