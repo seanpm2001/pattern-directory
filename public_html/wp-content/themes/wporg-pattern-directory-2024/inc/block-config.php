@@ -127,12 +127,14 @@ function update_query_total_label( $label, $found_posts ) {
 	}
 
 	$current = strtolower( $wp_query->get( 'curation' ) );
-	if ( 'core' === $current ) {
-		/* translators: %s: the result count. */
-		return _n( '%s curated pattern', '%s curated patterns', $found_posts, 'wporg-patterns' );
-	} else if ( 'community' === $current ) {
-		/* translators: %s: the result count. */
-		return _n( '%s community pattern', '%s community patterns', $found_posts, 'wporg-patterns' );
+	if ( $wp_query->is_archive() ) {
+		if ( 'core' === $current ) {
+			/* translators: %s: the result count. */
+			return _n( '%s curated pattern', '%s curated patterns', $found_posts, 'wporg-patterns' );
+		} else if ( 'community' === $current ) {
+			/* translators: %s: the result count. */
+			return _n( '%s community pattern', '%s community patterns', $found_posts, 'wporg-patterns' );
+		}
 	}
 
 	/* translators: %s: the result count. */
