@@ -466,7 +466,6 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 			$term_names = wp_list_pluck( $term_names, 'name' );
 			$breadcrumbs[] = array(
 				'url' => false,
-				// translators: %s list of terms used for filtering.
 				'title' => implode( ', ', $term_names ),
 			);
 		}
@@ -485,6 +484,17 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 			'url' => home_url( '/' ),
 			'title' => __( 'All patterns', 'wporg-patterns' ),
 		);
+
+		// If there is a cateogry, show it.
+		if ( $term_names ) {
+			$url = get_term_link( $term_names[0] );
+			$term_names = wp_list_pluck( $term_names, 'name' );
+			$breadcrumbs[] = array(
+				'url' => $url,
+				'title' => implode( ', ', $term_names ),
+			);
+		}
+
 		$breadcrumbs[] = array(
 			'url' => false,
 			'title' => __( 'Search results', 'wporg-patterns' ),
@@ -513,7 +523,6 @@ function update_site_breadcrumbs( $breadcrumbs ) {
 			$term_names = wp_list_pluck( $term_names, 'name' );
 			$breadcrumbs[] = array(
 				'url' => false,
-				// translators: %s list of terms used for filtering.
 				'title' => implode( ', ', $term_names ),
 			);
 		}
