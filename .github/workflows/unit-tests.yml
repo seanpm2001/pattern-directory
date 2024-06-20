@@ -47,7 +47,9 @@ jobs:
             - name: Install WordPress
               run: |
                   chmod -R 767 ./ # TODO: Possibly integrate in wp-env
-                  yarn wp-env start
+                  yarn wp-env start --update
+                  yarn wp-env run tests-cli wp core version
+                  yarn wp-env run tests-cli wp plugin list
 
             - name: Running multisite unit tests
               run: yarn test:php
