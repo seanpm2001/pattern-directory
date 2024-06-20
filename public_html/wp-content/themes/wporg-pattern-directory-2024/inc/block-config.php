@@ -300,17 +300,17 @@ function add_site_navigation_menus( $menus ) {
 	$statuses = array();
 
 	$menu[] = array(
-		'label' => __( 'Favorites', 'wporg-patterns' ),
+		'label' => __( 'My favorites', 'wporg-patterns' ),
 		'url' => '/favorites/',
 	);
 	if ( is_user_logged_in() ) {
 		$menu[] = array(
-			'label' => __( 'My Patterns', 'wporg-patterns' ),
+			'label' => __( 'My patterns', 'wporg-patterns' ),
 			'url' => '/my-patterns/',
 		);
 	}
 	$menu[] = array(
-		'label' => __( 'New Pattern', 'wporg-patterns' ),
+		'label' => __( 'New pattern', 'wporg-patterns' ),
 		'url' => '/new-pattern/',
 	);
 
